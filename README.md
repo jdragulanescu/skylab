@@ -4,12 +4,12 @@
 <br />
 <div align="center">
   <a href="https://github.com/jdragulanescu/skylab">
-    <img src="images/logo.png" alt="Logo" width="300" height="240">
+    <img src="images/logo.png" alt="Logo" width="247" height="282">
   </a>
 
 <h3 align="center">SKY LAB</h3>
 
-  <p align="center" style="margin-bottom:80px">
+  <p align="center">
     Homelab infrastructure code
    
   </p>

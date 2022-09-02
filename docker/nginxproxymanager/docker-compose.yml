@@ -15,9 +15,9 @@ services:
     environment:
       DB_MYSQL_HOST: "nginxproxymanager-db"
       DB_MYSQL_PORT: 3306
-      DB_MYSQL_USER: "securepassword"
-      DB_MYSQL_PASSWORD: "securepassword"
-      DB_MYSQL_NAME: "securepassword"
+      DB_MYSQL_USER: "npm"
+      DB_MYSQL_PASSWORD: "${DB_MYSQL_PASSWORD}"
+      DB_MYSQL_NAME: "npm"
     volumes:
       - nginxproxymanager-data:/data
       - nginxproxymanager-ssl:/etc/letsencrypt
@@ -31,10 +31,10 @@ services:
   nginxproxymanager-db:
     image: "jc21/mariadb-aria:latest"
     environment:
-      MYSQL_ROOT_PASSWORD: "securepassword"
-      MYSQL_DATABASE: "securepassword"
-      MYSQL_USER: "securepassword"
-      MYSQL_PASSWORD: "securepassword"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "npm"
+      MYSQL_USER: "npm"
+      MYSQL_PASSWORD: "${DB_MYSQL_PASSWORD}"
     volumes:
       - nginxproxymanager-db:/var/lib/mysql
     networks:

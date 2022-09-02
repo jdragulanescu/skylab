@@ -21,9 +21,13 @@ services:
     volumes:
       - nginxproxymanager-data:/data
       - nginxproxymanager-ssl:/etc/letsencrypt
+    restart: always
+    depends_on:
+      - nginxproxymanager-db
     networks:
       - republic
-    restart: always
+      - private
+
   nginxproxymanager-db:
     image: "jc21/mariadb-aria:latest"
     environment:
@@ -34,9 +38,10 @@ services:
     volumes:
       - nginxproxymanager-db:/var/lib/mysql
     networks:
-      - republic
+      - private
     restart: always
 
 networks:
   republic:
     external: true
+  private:

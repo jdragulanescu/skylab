@@ -23,6 +23,7 @@ services:
       - nginxproxymanager-ssl:/etc/letsencrypt
     networks:
       - republic
+    restart: always
   nginxproxymanager-db:
     image: "jc21/mariadb-aria:latest"
     environment:
@@ -34,6 +35,7 @@ services:
       - nginxproxymanager-db:/var/lib/mysql
     networks:
       - republic
+    restart: always
 
 networks:
   republic:

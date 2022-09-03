@@ -1,0 +1,32 @@
+---
+version: "3"
+services:
+  emby:
+    image: linuxserver/emby
+    container_name: emby
+    # environment:
+    #   - PUID=1000
+    #   - PGID=1000
+    #   - TZ=America/Denver
+    #   - UMASK_SET=022 #optional
+    volumes:
+      - /srv/dev-disk-by-uuid-0d4a201c-b292-412d-ade6-cc5561e54f1f/Configs/Emby:/config
+      - /srv/dev-disk-by-uuid-0d4a201c-b292-412d-ade6-cc5561e54f1f/TV:/data/tvshows
+      - /srv/dev-disk-by-uuid-0d4a201c-b292-412d-ade6-cc5561e54f1f/Movies:/data/movies
+    ports:
+      - 8096:8096
+      - 8920:8920 #optional for secure connections
+    restart: unless-stopped
+
+  embystat:
+    image: ghcr.io/linuxserver/embystat
+    container_name: embystat
+    # environment:
+    #   - PUID=1000
+    #   - PGID=1000
+    #   - TZ=America/Denver
+    volumes:
+      - /srv/dev-disk-by-uuid-0d4a201c-b292-412d-ade6-cc5561e54f1f/Configs/EmbyStat:/config
+    ports:
+      - 6555:6555
+    restart: unless-stopped

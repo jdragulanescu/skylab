@@ -27,6 +27,7 @@ services:
       - nginxproxymanager-db
     networks:
       - republic
+      - correlian
       - private
 
   nginxproxymanager-db:
@@ -45,5 +46,7 @@ services:
 
 networks:
   republic:
+    external: true
+  correlian:
     external: true
   private:

@@ -22,7 +22,7 @@ services:
       - media-shows:/data/tvshows
       - media-movies:/data/movies
     networks:
-      nginx_vlan:
+      vlan10:
         ipv4_address: 10.10.10.254
     # uncomment ports if not using vlan network
     # ports:

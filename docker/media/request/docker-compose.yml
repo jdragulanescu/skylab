@@ -1,0 +1,35 @@
+---
+version: "3"
+
+volumes:
+  ombi-data:
+
+services:
+  ombi:
+    image: linuxserver/ombi:latest
+    container_name: ombi
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Europe/London
+      - BASE_URL=/ombi #optional
+    volumes:
+      - ombi-data:/config
+    networks:
+      vlan10:
+        ipv4_address: 10.10.10.253
+      - corellian
+    restart: always
+
+
+networks:
+  vlan10:
+    driver: macvlan
+    driver_opts:
+      parent: ens18.10
+    ipam:
+      config:
+        - subnet: 10.10.10.0/24
+          gateway: 10.10.10.1
+  correlian:
+    external: true

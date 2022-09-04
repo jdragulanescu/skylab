@@ -16,19 +16,13 @@ services:
     volumes:
       - ombi-data:/config
     networks:
-      vlan10:
+      empire:
         ipv4_address: 10.10.10.253
       correlian:
     restart: always
 
 networks:
-  vlan10:
-    driver: macvlan
-    driver_opts:
-      parent: ens18.10
-    ipam:
-      config:
-        - subnet: 10.10.10.0/24
-          gateway: 10.10.10.1
+  empire:
+    external: true
   correlian:
     external: true

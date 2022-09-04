@@ -38,4 +38,5 @@ networks:
       parent: ens18.10
     ipam:
       config:
-        - subnet: 10.10.10.252/30
+        - subnet: 10.10.10.0/24
+          gateway: 10.10.10.1

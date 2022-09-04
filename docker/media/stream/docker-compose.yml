@@ -21,6 +21,9 @@ services:
       - jellyfin-data:/config
       - media-shows:/data/tvshows
       - media-movies:/data/movies
+    networks:
+      vlan10:
+        ipv4_address: 10.10.10.254
     # uncomment ports if not using vlan network
     # ports:
     #   - 8096:8096
@@ -35,7 +38,6 @@ network:
     driver_opts:
       parent: ens18.10
     ipam:
-      driver: default
       config:
-        - subnet: 192.168.10.252/30
-          gateway: 192.168.1.1
+        - subnet: 10.10.10.252/30
+          gateway: 10.10.10.1

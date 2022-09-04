@@ -22,7 +22,7 @@ services:
     #  - UID=1000
     #  - GID=1000
     # Specify restart policy
-    restart: unless-stopped
+    restart: always
     # Configure healthchecks
     healthcheck:
       test: ["CMD", "node", "/app/services/healthcheck"]

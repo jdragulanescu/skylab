@@ -18,9 +18,8 @@ services:
     networks:
       vlan10:
         ipv4_address: 10.10.10.253
-      - corellian
+      corellian:
     restart: always
-
 
 networks:
   vlan10:

@@ -1,32 +1,41 @@
 ---
 version: "3"
+
+volumes:
+  jellyfin-data:
+  media-movies:
+    external: true
+  media-shows:
+    external: true
+
 services:
-  emby:
-    image: linuxserver/emby
-    container_name: emby
-    # environment:
-    #   - PUID=1000
-    #   - PGID=1000
-    #   - TZ=America/Denver
-    #   - UMASK_SET=022 #optional
+  jellyfin:
+    image: linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Europe/London
+      # - JELLYFIN_PublishedServerUrl=192.168.0.5 #optional
     volumes:
-      - /srv/dev-disk-by-uuid-0d4a201c-b292-412d-ade6-cc5561e54f1f/Configs/Emby:/config
-      - /srv/dev-disk-by-uuid-0d4a201c-b292-412d-ade6-cc5561e54f1f/TV:/data/tvshows
-      - /srv/dev-disk-by-uuid-0d4a201c-b292-412d-ade6-cc5561e54f1f/Movies:/data/movies
-    ports:
-      - 8096:8096
-      - 8920:8920 #optional for secure connections
+      - jellyfin-data:/config
+      - media-shows:/data/tvshows
+      - media-movies:/data/movies
+    # uncomment ports if not using vlan network
+    # ports:
+    #   - 8096:8096
+    #   - 8920:8920 #optional
+    #   - 7359:7359/udp #optional
+    #   - 1900:1900/udp #optional
     restart: unless-stopped
 
-  embystat:
-    image: ghcr.io/linuxserver/embystat
-    container_name: embystat
-    # environment:
-    #   - PUID=1000
-    #   - PGID=1000
-    #   - TZ=America/Denver
-    volumes:
-      - /srv/dev-disk-by-uuid-0d4a201c-b292-412d-ade6-cc5561e54f1f/Configs/EmbyStat:/config
-    ports:
-      - 6555:6555
-    restart: unless-stopped
+network:
+  vlan10:
+    driver: macvlan
+    driver_opts:
+      parent: ens18.10
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.10.252/30
+          gateway: 192.168.1.1

@@ -4,6 +4,7 @@ version: "3"
 volumes:
   jellyfin-data:
   ombi-data:
+  emby-data:
   media-movies:
     external: true
   media-shows:
@@ -47,6 +48,32 @@ services:
       vlan10:
         ipv4_address: 10.10.10.253
       correlian:
+    restart: always
+
+  emby:
+    image: linuxserver/emby:latest
+    container_name: emby
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Europe/London
+    volumes:
+      - emby-data:/config
+      - media-shows:/data/tvshows
+      - media-movies:/data/movies
+      # - /opt/vc/lib:/opt/vc/lib #optional
+    networks:
+      vlan10:
+        ipv4_address: 10.10.10.252
+    # ports:
+    #   - 8096:8096
+    #   - 8920:8920 #optional
+    # devices:
+    # - /dev/dri:/dev/dri #optional
+    # - /dev/vchiq:/dev/vchiq #optional
+    # - /dev/video10:/dev/video10 #optional
+    # - /dev/video11:/dev/video11 #optional
+    # - /dev/video12:/dev/video12 #optional
     restart: always
 
 networks:
